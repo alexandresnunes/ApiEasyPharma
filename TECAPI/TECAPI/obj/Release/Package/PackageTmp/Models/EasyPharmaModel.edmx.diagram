@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4d2e37d59b7e4024a7925320562c598f" Name="Diagram1">
+        <EntityTypeShape EntityType="easypharmadbModel.C__MigrationHistory" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="easypharmadbModel.Laboratories" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="easypharmadbModel.Medicines" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="easypharmadbModel.PBMProgramMedicines" Width="1.5" PointX="7.5" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="easypharmadbModel.PBMPrograms" Width="1.5" PointX="5.25" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="easypharmadbModel.PBMs" Width="1.5" PointX="3" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="easypharmadbModel.States" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="easypharmadbModel.TaxByStates" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="easypharmadbModel.TherapeuticClasses" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="easypharmadbModel.database_firewall_rules" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="easypharmadbModel.FK_dbo_Medicines_dbo_Laboratories_IdLab" ManuallyRouted="false" />
+        <AssociationConnector Association="easypharmadbModel.FK_dbo_Medicines_dbo_TaxByStates_IdTaxByState" ManuallyRouted="false" />
+        <AssociationConnector Association="easypharmadbModel.FK_dbo_Medicines_dbo_TherapeuticClasses_IdTherapeuticClass" ManuallyRouted="false" />
+        <AssociationConnector Association="easypharmadbModel.FK_dbo_PBMProgramMedicines_dbo_Medicines_IdMedicine" ManuallyRouted="false" />
+        <AssociationConnector Association="easypharmadbModel.FK_dbo_PBMProgramMedicines_dbo_PBMPrograms_IdPBMProgram" ManuallyRouted="false" />
+        <AssociationConnector Association="easypharmadbModel.FK_dbo_PBMPrograms_dbo_PBMs_IdPBM" ManuallyRouted="false" />
+        <AssociationConnector Association="easypharmadbModel.FK_dbo_TaxByStates_dbo_States_IdState" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

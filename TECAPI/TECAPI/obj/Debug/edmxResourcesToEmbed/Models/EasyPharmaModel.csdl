@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="easypharmadbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="C__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Laboratories">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AddressNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CNPJ" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Medicines" Relationship="Self.FK_dbo_Medicines_dbo_Laboratories_IdLab" FromRole="Laboratories" ToRole="Medicines" />
+  </EntityType>
+  <EntityType Name="Medicines">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EAN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Registration" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Composition" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IdLab" Type="Int32" Nullable="false" />
+    <Property Name="IdTherapeuticClass" Type="Int32" Nullable="false" />
+    <Property Name="IdTaxByState" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Laboratories" Relationship="Self.FK_dbo_Medicines_dbo_Laboratories_IdLab" FromRole="Medicines" ToRole="Laboratories" />
+    <NavigationProperty Name="TaxByStates" Relationship="Self.FK_dbo_Medicines_dbo_TaxByStates_IdTaxByState" FromRole="Medicines" ToRole="TaxByStates" />
+    <NavigationProperty Name="TherapeuticClasses" Relationship="Self.FK_dbo_Medicines_dbo_TherapeuticClasses_IdTherapeuticClass" FromRole="Medicines" ToRole="TherapeuticClasses" />
+    <NavigationProperty Name="PBMProgramMedicines" Relationship="Self.FK_dbo_PBMProgramMedicines_dbo_Medicines_IdMedicine" FromRole="Medicines" ToRole="PBMProgramMedicines" />
+  </EntityType>
+  <EntityType Name="PBMProgramMedicines">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PercDescPF" Type="Double" Nullable="false" />
+    <Property Name="PercDescPMC" Type="Double" Nullable="false" />
+    <Property Name="ExtraInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IdPBMProgram" Type="Int32" Nullable="false" />
+    <Property Name="IdMedicine" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Medicines" Relationship="Self.FK_dbo_PBMProgramMedicines_dbo_Medicines_IdMedicine" FromRole="PBMProgramMedicines" ToRole="Medicines" />
+    <NavigationProperty Name="PBMPrograms" Relationship="Self.FK_dbo_PBMProgramMedicines_dbo_PBMPrograms_IdPBMProgram" FromRole="PBMProgramMedicines" ToRole="PBMPrograms" />
+  </EntityType>
+  <EntityType Name="PBMPrograms">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IdPBM" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="PBMProgramMedicines" Relationship="Self.FK_dbo_PBMProgramMedicines_dbo_PBMPrograms_IdPBMProgram" FromRole="PBMPrograms" ToRole="PBMProgramMedicines" />
+    <NavigationProperty Name="PBMs" Relationship="Self.FK_dbo_PBMPrograms_dbo_PBMs_IdPBM" FromRole="PBMPrograms" ToRole="PBMs" />
+  </EntityType>
+  <EntityType Name="PBMs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="PBMPrograms" Relationship="Self.FK_dbo_PBMPrograms_dbo_PBMs_IdPBM" FromRole="PBMs" ToRole="PBMPrograms" />
+  </EntityType>
+  <EntityType Name="States">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="TaxByStates" Relationship="Self.FK_dbo_TaxByStates_dbo_States_IdState" FromRole="States" ToRole="TaxByStates" />
+  </EntityType>
+  <EntityType Name="TaxByStates">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PF" Type="Double" Nullable="false" />
+    <Property Name="PMC" Type="Double" Nullable="false" />
+    <Property Name="IdState" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Medicines" Relationship="Self.FK_dbo_Medicines_dbo_TaxByStates_IdTaxByState" FromRole="TaxByStates" ToRole="Medicines" />
+    <NavigationProperty Name="States" Relationship="Self.FK_dbo_TaxByStates_dbo_States_IdState" FromRole="TaxByStates" ToRole="States" />
+  </EntityType>
+  <EntityType Name="TherapeuticClasses">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Medicines" Relationship="Self.FK_dbo_Medicines_dbo_TherapeuticClasses_IdTherapeuticClass" FromRole="TherapeuticClasses" ToRole="Medicines" />
+  </EntityType>
+  <EntityType Name="database_firewall_rules">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="name" />
+      <PropertyRef Name="start_ip_address" />
+      <PropertyRef Name="end_ip_address" />
+      <PropertyRef Name="create_date" />
+      <PropertyRef Name="modify_date" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="start_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="end_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <Association Name="FK_dbo_Medicines_dbo_Laboratories_IdLab">
+    <End Role="Laboratories" Type="Self.Laboratories" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Medicines" Type="Self.Medicines" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Laboratories">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Medicines">
+        <PropertyRef Name="IdLab" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Medicines_dbo_TaxByStates_IdTaxByState">
+    <End Role="TaxByStates" Type="Self.TaxByStates" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Medicines" Type="Self.Medicines" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TaxByStates">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Medicines">
+        <PropertyRef Name="IdTaxByState" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Medicines_dbo_TherapeuticClasses_IdTherapeuticClass">
+    <End Role="TherapeuticClasses" Type="Self.TherapeuticClasses" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Medicines" Type="Self.Medicines" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TherapeuticClasses">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Medicines">
+        <PropertyRef Name="IdTherapeuticClass" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_PBMProgramMedicines_dbo_Medicines_IdMedicine">
+    <End Role="Medicines" Type="Self.Medicines" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="PBMProgramMedicines" Type="Self.PBMProgramMedicines" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medicines">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PBMProgramMedicines">
+        <PropertyRef Name="IdMedicine" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_PBMProgramMedicines_dbo_PBMPrograms_IdPBMProgram">
+    <End Role="PBMPrograms" Type="Self.PBMPrograms" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="PBMProgramMedicines" Type="Self.PBMProgramMedicines" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PBMPrograms">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PBMProgramMedicines">
+        <PropertyRef Name="IdPBMProgram" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_PBMPrograms_dbo_PBMs_IdPBM">
+    <End Role="PBMs" Type="Self.PBMs" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="PBMPrograms" Type="Self.PBMPrograms" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PBMs">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PBMPrograms">
+        <PropertyRef Name="IdPBM" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_TaxByStates_dbo_States_IdState">
+    <End Role="States" Type="Self.States" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TaxByStates" Type="Self.TaxByStates" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="States">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TaxByStates">
+        <PropertyRef Name="IdState" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="easypharmadbEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+    <EntitySet Name="Laboratories" EntityType="Self.Laboratories" />
+    <EntitySet Name="Medicines" EntityType="Self.Medicines" />
+    <EntitySet Name="PBMProgramMedicines" EntityType="Self.PBMProgramMedicines" />
+    <EntitySet Name="PBMPrograms" EntityType="Self.PBMPrograms" />
+    <EntitySet Name="PBMs" EntityType="Self.PBMs" />
+    <EntitySet Name="States" EntityType="Self.States" />
+    <EntitySet Name="TaxByStates" EntityType="Self.TaxByStates" />
+    <EntitySet Name="TherapeuticClasses" EntityType="Self.TherapeuticClasses" />
+    <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" />
+    <AssociationSet Name="FK_dbo_Medicines_dbo_Laboratories_IdLab" Association="Self.FK_dbo_Medicines_dbo_Laboratories_IdLab">
+      <End Role="Laboratories" EntitySet="Laboratories" />
+      <End Role="Medicines" EntitySet="Medicines" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Medicines_dbo_TaxByStates_IdTaxByState" Association="Self.FK_dbo_Medicines_dbo_TaxByStates_IdTaxByState">
+      <End Role="TaxByStates" EntitySet="TaxByStates" />
+      <End Role="Medicines" EntitySet="Medicines" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Medicines_dbo_TherapeuticClasses_IdTherapeuticClass" Association="Self.FK_dbo_Medicines_dbo_TherapeuticClasses_IdTherapeuticClass">
+      <End Role="TherapeuticClasses" EntitySet="TherapeuticClasses" />
+      <End Role="Medicines" EntitySet="Medicines" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_PBMProgramMedicines_dbo_Medicines_IdMedicine" Association="Self.FK_dbo_PBMProgramMedicines_dbo_Medicines_IdMedicine">
+      <End Role="Medicines" EntitySet="Medicines" />
+      <End Role="PBMProgramMedicines" EntitySet="PBMProgramMedicines" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_PBMProgramMedicines_dbo_PBMPrograms_IdPBMProgram" Association="Self.FK_dbo_PBMProgramMedicines_dbo_PBMPrograms_IdPBMProgram">
+      <End Role="PBMPrograms" EntitySet="PBMPrograms" />
+      <End Role="PBMProgramMedicines" EntitySet="PBMProgramMedicines" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_PBMPrograms_dbo_PBMs_IdPBM" Association="Self.FK_dbo_PBMPrograms_dbo_PBMs_IdPBM">
+      <End Role="PBMs" EntitySet="PBMs" />
+      <End Role="PBMPrograms" EntitySet="PBMPrograms" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_TaxByStates_dbo_States_IdState" Association="Self.FK_dbo_TaxByStates_dbo_States_IdState">
+      <End Role="States" EntitySet="States" />
+      <End Role="TaxByStates" EntitySet="TaxByStates" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
